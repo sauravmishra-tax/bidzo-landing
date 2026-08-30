@@ -6,43 +6,20 @@
 
 <style>
   :root {
-    --ink: #12181f;
-    --ink-soft: #3a4452;
-    --paper: #f6f3ec;
+    --ink: #2b271f;
+    --ink-soft: #83786a;
+    --paper: #fbf6ee;
     --paper-raised: #ffffff;
-    --line: #dcd6c8;
-    --gold: #b8802e;
-    --gold-bright: #d99a3d;
-    --teal: #1f7a6c;
-    --teal-bg: #e4f0ec;
+    --line: #e9e0cf;
+    --gold: #c68f45;
+    --gold-bright: #dba85f;
+    --teal: #3f9b8a;
+    --teal-bg: #eaf4f0;
+    --blush: #e7b8a4;
+    --lilac: #b9aee0;
     --mono: 'IBM Plex Mono', ui-monospace, monospace;
     --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
     --serif: 'Fraunces', 'Iowan Old Style', ui-serif, Georgia, serif;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ink: #ece7dc;
-      --ink-soft: #a9a08d;
-      --paper: #14120f;
-      --paper-raised: #1c1914;
-      --line: #322c22;
-      --gold: #e0a44a;
-      --gold-bright: #f0b95e;
-      --teal: #5cc4b0;
-      --teal-bg: #16241f;
-    }
-  }
-  :root[data-theme="dark"] {
-    --ink: #ece7dc;
-    --ink-soft: #a9a08d;
-    --paper: #14120f;
-    --paper-raised: #1c1914;
-    --line: #322c22;
-    --gold: #e0a44a;
-    --gold-bright: #f0b95e;
-    --teal: #5cc4b0;
-    --teal-bg: #16241f;
   }
 
   * { box-sizing: border-box; }
@@ -59,9 +36,60 @@
     font-family: var(--sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    position: relative;
   }
 
-  ::selection { background: var(--gold); color: #14120f; }
+  /* ---------- ambient background: soft floating gradient blobs ---------- */
+  .bg-blobs {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .bg-blobs span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(64px);
+    opacity: 0.4;
+    will-change: transform;
+  }
+  .bg-blobs .b1 {
+    width: 46vw; height: 46vw; max-width: 620px; max-height: 620px;
+    top: -14%; left: -12%;
+    background: radial-gradient(circle, var(--blush) 0%, transparent 72%);
+    animation: floatA 26s ease-in-out infinite;
+  }
+  .bg-blobs .b2 {
+    width: 38vw; height: 38vw; max-width: 520px; max-height: 520px;
+    top: 18%; right: -10%;
+    background: radial-gradient(circle, var(--lilac) 0%, transparent 72%);
+    animation: floatB 32s ease-in-out infinite;
+  }
+  .bg-blobs .b3 {
+    width: 42vw; height: 42vw; max-width: 560px; max-height: 560px;
+    bottom: -16%; left: 20%;
+    background: radial-gradient(circle, var(--teal) 0%, transparent 72%);
+    opacity: 0.22;
+    animation: floatC 30s ease-in-out infinite;
+  }
+  @keyframes floatA {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(6vw, 8vh) scale(1.12); }
+  }
+  @keyframes floatB {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-7vw, 6vh) scale(1.08); }
+  }
+  @keyframes floatC {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(5vw, -6vh) scale(1.1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bg-blobs span { animation: none; }
+  }
+
+  ::selection { background: var(--gold); color: #2b271f; }
 
   a { color: inherit; }
   img, svg { max-width: 100%; }
@@ -118,13 +146,9 @@
     width: calc(100% + 56px);
     height: 100%;
     display: block;
-    opacity: 0.55;
+    opacity: 0.6;
     pointer-events: none;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .hero-canvas { opacity: 0.75; }
-  }
-  :root[data-theme="dark"] .hero-canvas { opacity: 0.75; }
   .hero-glow {
     position: absolute;
     top: -180px; right: -160px;
@@ -184,7 +208,7 @@
     display: inline-flex; align-items: center; gap: 10px;
   }
   .btn-primary { background: var(--ink); color: var(--paper); }
-  .btn-primary:hover { background: var(--gold); color: #14120f; }
+  .btn-primary:hover { background: var(--gold); color: #2b271f; }
   .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
@@ -300,29 +324,19 @@
   .honest-list li { display: flex; gap: 12px; font-size: 0.95rem; }
   .honest-list .mark { color: var(--gold); font-family: var(--mono); }
 
-  /* pricing */
-  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  @media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
-  .plan {
-    border: 1px solid var(--line); padding: 30px 26px;
-    display: flex; flex-direction: column;
+  /* pricing teaser */
+  .pricing-teaser {
+    max-width: 620px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    padding: 44px;
   }
-  .plan.featured { border-color: var(--gold); background: var(--paper-raised); position: relative; }
-  .plan.featured::before {
-    content: "Launch offer"; position: absolute; top: -12px; left: 26px;
-    background: var(--gold); color: #14120f; font-family: var(--mono);
-    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 3px 10px;
-  }
-  .plan h3 { font-size: 1.1rem; font-weight: 600; font-family: var(--sans); }
-  .plan .price { font-family: var(--mono); font-size: 1.9rem; margin-top: 14px; }
-  .plan .price span { font-size: 0.9rem; color: var(--ink-soft); font-family: var(--sans); }
-  .plan ul { list-style: none; padding: 0; margin: 22px 0; display: flex; flex-direction: column; gap: 11px; font-size: 0.92rem; flex-grow: 1; }
-  .plan ul li { display: flex; gap: 10px; color: var(--ink-soft); }
-  .plan ul li::before { content: "—"; color: var(--gold); flex-shrink: 0; }
-  .plan a { text-align: center; padding: 12px; text-decoration: none; border: 1px solid var(--ink); font-size: 0.9rem; }
-  .plan.featured a { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .plan a:hover { background: var(--gold); border-color: var(--gold); color: #14120f; }
+  .pricing-teaser h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; }
+  .pricing-teaser .lede { color: var(--ink-soft); margin-top: 16px; font-size: 1.02rem; }
+  .pricing-points { list-style: none; margin: 26px 0 32px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .pricing-points li { display: flex; gap: 10px; font-size: 0.95rem; }
+  .pricing-points .mark { color: var(--gold); font-family: var(--mono); }
+  @media (max-width: 600px) { .pricing-teaser { padding: 30px 24px; } }
 
   /* cta */
   .cta-section {
@@ -340,6 +354,8 @@
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
   }
 </style>
+
+<div class="bg-blobs"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
 
 <header class="site">
   <div class="nav">
@@ -505,46 +521,16 @@
   </section>
 
   <section id="pricing">
-    <div class="section-head reveal">
+    <div class="pricing-teaser reveal">
       <div class="eyebrow">Pricing</div>
-      <h2>Simple, spend-based management fees</h2>
-      <p>One flat monthly fee based on your ad spend tier — no percentage-of-sales pricing that quietly grows against you.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="plan reveal">
-        <h3>Starter</h3>
-        <div class="price">₹15,000<span> /mo</span></div>
-        <ul>
-          <li>Up to ₹1,50,000 monthly ad spend</li>
-          <li>Sponsored Products management</li>
-          <li>Weekly optimization</li>
-          <li>Monthly report</li>
-        </ul>
-        <a href="#contact">Start here</a>
-      </div>
-      <div class="plan featured reveal">
-        <h3>Growth</h3>
-        <div class="price">₹28,000<span> /mo</span></div>
-        <ul>
-          <li>Up to ₹5,00,000 monthly ad spend</li>
-          <li>Full-funnel: SP, SB, SD</li>
-          <li>Weekly optimization + search-term review</li>
-          <li>Listing gap flagging</li>
-          <li>Founder-managed for first 90 days</li>
-        </ul>
-        <a href="#contact">Get started</a>
-      </div>
-      <div class="plan reveal">
-        <h3>Scale</h3>
-        <div class="price">Custom</div>
-        <ul>
-          <li>₹5,00,000+ monthly ad spend</li>
-          <li>Multi-marketplace campaigns</li>
-          <li>Dedicated weekly call</li>
-          <li>Custom bid rules by catalog</li>
-        </ul>
-        <a href="#contact">Talk to us</a>
-      </div>
+      <h2>Priced around your ad spend — quoted after the audit, not before.</h2>
+      <p class="lede">Every account is a different size, so we're not going to hand you a generic price card. Send us your account, we'll audit it for free, and you'll get a flat monthly fee scoped to your actual spend — no percentage-of-sales pricing that quietly grows against you.</p>
+      <ul class="pricing-points">
+        <li><span class="mark">→</span> Flat monthly fee, not a cut of your sales</li>
+        <li><span class="mark">→</span> Scoped to your spend tier after the free audit</li>
+        <li><span class="mark">→</span> No lock-in contract — month to month</li>
+      </ul>
+      <a class="btn-primary" href="#contact">Get your quote</a>
     </div>
   </section>
 

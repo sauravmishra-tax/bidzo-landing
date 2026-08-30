@@ -1,0 +1,504 @@
+<title>Bidzo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #12181f;
+    --ink-soft: #3a4452;
+    --paper: #f6f3ec;
+    --paper-raised: #ffffff;
+    --line: #dcd6c8;
+    --gold: #b8802e;
+    --gold-bright: #d99a3d;
+    --teal: #1f7a6c;
+    --teal-bg: #e4f0ec;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --serif: 'Fraunces', 'Iowan Old Style', ui-serif, Georgia, serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #ece7dc;
+      --ink-soft: #a9a08d;
+      --paper: #14120f;
+      --paper-raised: #1c1914;
+      --line: #322c22;
+      --gold: #e0a44a;
+      --gold-bright: #f0b95e;
+      --teal: #5cc4b0;
+      --teal-bg: #16241f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #ece7dc;
+    --ink-soft: #a9a08d;
+    --paper: #14120f;
+    --paper-raised: #1c1914;
+    --line: #322c22;
+    --gold: #e0a44a;
+    --gold-bright: #f0b95e;
+    --teal: #5cc4b0;
+    --teal-bg: #16241f;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--gold); color: #14120f; }
+
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  h1, h2, h3 { font-family: var(--serif); text-wrap: balance; margin: 0; }
+
+  /* ---------- nav ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+    max-width: 1120px; margin: 0 auto;
+  }
+  .brand {
+    font-family: var(--serif); font-weight: 600; font-size: 1.35rem;
+    letter-spacing: 0.01em;
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .brand .dot { color: var(--gold); font-size: 1.6rem; line-height: 0; }
+  nav.links { display: flex; gap: 32px; font-size: 0.94rem; }
+  nav.links a { text-decoration: none; color: var(--ink-soft); transition: color 0.15s; }
+  nav.links a:hover, nav.links a:focus-visible { color: var(--gold); }
+  .nav-cta {
+    border: 1px solid var(--ink);
+    padding: 9px 18px;
+    font-size: 0.88rem;
+    text-decoration: none;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--paper); }
+  @media (max-width: 760px) { nav.links { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 88px 0 64px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; padding: 56px 0 40px; } }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal); display: inline-block;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.3rem, 4.6vw, 3.6rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); font-weight: 500; }
+
+  .hero p.lede {
+    margin: 24px 0 0;
+    font-size: 1.14rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+
+  .hero-actions { display: flex; gap: 16px; margin-top: 34px; flex-wrap: wrap; }
+  .btn-primary, .btn-ghost {
+    font-size: 0.96rem; padding: 14px 26px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--gold); color: #14120f; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ---------- hero panel: live-feel dashboard mock ---------- */
+  .panel {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 0 var(--line);
+    font-family: var(--mono);
+  }
+  .panel-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; border-bottom: 1px solid var(--line);
+    font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .panel-head .live { color: var(--teal); display: flex; align-items: center; gap: 7px; }
+  .panel-head .live::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .metric {
+    padding: 20px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .metric:nth-child(odd) { border-right: 1px solid var(--line); }
+  .metric .label { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .metric .value { font-size: 1.65rem; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .metric .value.up { color: var(--teal); }
+  .metric .delta { font-size: 0.78rem; color: var(--teal); margin-top: 2px; }
+  .metric .delta.down { color: var(--gold); }
+
+  .panel-foot {
+    padding: 14px 18px;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    display: flex; justify-content: space-between;
+  }
+
+  /* ---------- section shared ---------- */
+  section { padding: 76px 0; border-top: 1px solid var(--line); }
+  .section-head { max-width: 640px; margin-bottom: 48px; }
+  .section-head .eyebrow { margin-bottom: 14px; }
+  .section-head h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 600; }
+  .section-head p { color: var(--ink-soft); margin-top: 14px; font-size: 1.03rem; }
+
+  /* services */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 820px) { .services-grid { grid-template-columns: 1fr; } }
+  .service {
+    background: var(--paper); padding: 32px 28px;
+  }
+  .service .num { font-family: var(--mono); font-size: 0.78rem; color: var(--gold); }
+  .service h3 { font-size: 1.2rem; font-weight: 600; margin-top: 14px; }
+  .service p { color: var(--ink-soft); font-size: 0.95rem; margin-top: 10px; }
+
+  /* process */
+  .process { display: flex; flex-direction: column; }
+  .step {
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 28px; padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .step:first-child { border-top: 1px solid var(--line); }
+  .step .idx {
+    font-family: var(--serif); font-size: 2.1rem; color: var(--line);
+    font-weight: 600;
+  }
+  .step-body h3 { font-size: 1.15rem; font-weight: 600; font-family: var(--sans); }
+  .step-body p { color: var(--ink-soft); margin-top: 8px; max-width: 60ch; font-size: 0.97rem; }
+  .step-body .tag {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    background: var(--teal-bg); padding: 3px 9px; display: inline-block; margin-top: 10px;
+  }
+
+  /* founder / honesty section */
+  .honest {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    padding: 44px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  }
+  @media (max-width: 760px) { .honest { grid-template-columns: 1fr; padding: 32px 24px; } }
+  .honest h2 { font-size: 1.5rem; }
+  .honest .lede { color: var(--ink-soft); margin-top: 14px; }
+  .honest-list { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .honest-list li { display: flex; gap: 12px; font-size: 0.95rem; }
+  .honest-list .mark { color: var(--gold); font-family: var(--mono); }
+
+  /* pricing */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 880px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .plan {
+    border: 1px solid var(--line); padding: 30px 26px;
+    display: flex; flex-direction: column;
+  }
+  .plan.featured { border-color: var(--gold); background: var(--paper-raised); position: relative; }
+  .plan.featured::before {
+    content: "Launch offer"; position: absolute; top: -12px; left: 26px;
+    background: var(--gold); color: #14120f; font-family: var(--mono);
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 3px 10px;
+  }
+  .plan h3 { font-size: 1.1rem; font-weight: 600; font-family: var(--sans); }
+  .plan .price { font-family: var(--mono); font-size: 1.9rem; margin-top: 14px; }
+  .plan .price span { font-size: 0.9rem; color: var(--ink-soft); font-family: var(--sans); }
+  .plan ul { list-style: none; padding: 0; margin: 22px 0; display: flex; flex-direction: column; gap: 11px; font-size: 0.92rem; flex-grow: 1; }
+  .plan ul li { display: flex; gap: 10px; color: var(--ink-soft); }
+  .plan ul li::before { content: "—"; color: var(--gold); flex-shrink: 0; }
+  .plan a { text-align: center; padding: 12px; text-decoration: none; border: 1px solid var(--ink); font-size: 0.9rem; }
+  .plan.featured a { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .plan a:hover { background: var(--gold); border-color: var(--gold); color: #14120f; }
+
+  /* cta */
+  .cta-section {
+    text-align: center; padding: 96px 0;
+  }
+  .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); max-width: 20ch; margin: 0 auto; }
+  .cta-section p { color: var(--ink-soft); margin: 18px auto 0; max-width: 48ch; }
+  .cta-section .btn-primary { margin-top: 32px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0 40px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+</style>
+
+<header class="site">
+  <div class="nav">
+    <div class="brand"><span class="dot">·</span>Bidzo</div>
+    <nav class="links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#honest">Why us</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Book a call</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero" style="border-top: none;">
+    <div>
+      <div class="eyebrow">Amazon Ads management</div>
+      <h1>We run Amazon ads like it's <em>our</em> ad spend.</h1>
+      <p class="lede">Bidzo is a new agency built around one thing: managing Sponsored Products, Brands, and Display campaigns for Amazon sellers who want lower ACOS and more sales — not another retainer that goes quiet after month one.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Get a free account audit</a>
+        <a class="btn-ghost" href="#process">See how we work</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span>account_snapshot.log</span>
+        <span class="live">live model</span>
+      </div>
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="label">ACOS target</div>
+          <div class="value">18.4%</div>
+          <div class="delta">optimizing weekly</div>
+        </div>
+        <div class="metric">
+          <div class="label">TACOS</div>
+          <div class="value">9.2%</div>
+          <div class="delta">bid layer active</div>
+        </div>
+        <div class="metric">
+          <div class="label">Search terms audited</div>
+          <div class="value up">2,140</div>
+          <div class="delta">negatives applied daily</div>
+        </div>
+        <div class="metric">
+          <div class="label">Campaign types live</div>
+          <div class="value">SP · SB · SD</div>
+          <div class="delta down">full-funnel</div>
+        </div>
+      </div>
+      <div class="panel-foot">
+        <span>sample structure — your account, modeled</span>
+        <span>bidzo.digital</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-head">
+      <div class="eyebrow">What we manage</div>
+      <h2>Full-funnel Amazon advertising, handled end to end</h2>
+      <p>Every campaign type Amazon offers, structured around your catalog and margins — not a generic template copied across every client.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="num">01</div>
+        <h3>Sponsored Products</h3>
+        <p>Keyword and product-targeting campaigns built by ASIN, with bid rules tuned to your actual margin, not a flat target ACOS.</p>
+      </div>
+      <div class="service">
+        <div class="num">02</div>
+        <h3>Sponsored Brands &amp; Display</h3>
+        <p>Brand-level campaigns and retargeting layered on top once Sponsored Products data tells us where the demand actually is.</p>
+      </div>
+      <div class="service">
+        <div class="num">03</div>
+        <h3>Catalog &amp; listing input</h3>
+        <p>Ads only convert what the listing supports — we flag title, image, and A+ content gaps that are quietly capping performance.</p>
+      </div>
+      <div class="service">
+        <div class="num">04</div>
+        <h3>Search term &amp; negative harvesting</h3>
+        <p>Weekly search-term review to cut wasted spend and feed winning terms back into exact-match campaigns.</p>
+      </div>
+      <div class="service">
+        <div class="num">05</div>
+        <h3>Bid &amp; budget management</h3>
+        <p>Daypart and placement bid adjustments, dayparting, and budget pacing so spend doesn't run out by noon.</p>
+      </div>
+      <div class="service">
+        <div class="num">06</div>
+        <h3>Reporting, in plain language</h3>
+        <p>A weekly report that explains what changed and why — no jargon dump, no vanity metrics.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="section-head">
+      <div class="eyebrow">How an engagement runs</div>
+      <h2>Four stages, repeated every week</h2>
+      <p>This is the actual cycle we run on every account, in order — not a marketing flourish.</p>
+    </div>
+    <div class="process">
+      <div class="step">
+        <div class="idx">01</div>
+        <div class="step-body">
+          <h3>Audit</h3>
+          <p>We pull 60 days of your Amazon Ads and Business Reports (or start clean if you're new to ads) and map spend against actual margin by ASIN.</p>
+          <span class="tag">Week 1</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">02</div>
+        <div class="step-body">
+          <h3>Rebuild campaign structure</h3>
+          <p>Campaigns are rebuilt around match type and intent — discovery, harvesting, and exact-match scaling separated so bids don't fight each other.</p>
+          <span class="tag">Week 1–2</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">03</div>
+        <div class="step-body">
+          <h3>Optimize weekly</h3>
+          <p>Bids, budgets, and negatives are adjusted every week based on the previous week's search-term data — not left on autopilot.</p>
+          <span class="tag">Ongoing</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="idx">04</div>
+        <div class="step-body">
+          <h3>Report and plan next month</h3>
+          <p>A short report each month: what worked, what we're cutting, and what we're testing next — plus a call if you want one.</p>
+          <span class="tag">Monthly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="honest">
+    <div class="honest">
+      <div>
+        <div class="eyebrow">The honest part</div>
+        <h2>We're a new agency. Here's exactly what that means.</h2>
+        <p class="lede">We don't have a client roster to show you yet — Bidzo is newly founded. What we do have is hands-on Amazon Ads experience, direct founder involvement on every account, and a structure built to earn a track record instead of hide behind one.</p>
+      </div>
+      <ul class="honest-list">
+        <li><span class="mark">→</span> Your account is managed directly by the founder for the first 90 days — no account gets handed to a junior queue.</li>
+        <li><span class="mark">→</span> Everything above is the real process, applied to your account from day one — not a case study we're reusing.</li>
+        <li><span class="mark">→</span> We take on a limited number of accounts at launch, so we can actually optimize weekly instead of skimming dozens of clients.</li>
+        <li><span class="mark">→</span> No lock-in contract while we build our track record with you — month to month, cancel any time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="section-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Simple, spend-based management fees</h2>
+      <p>One flat monthly fee based on your ad spend tier — no percentage-of-sales pricing that quietly grows against you.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <h3>Starter</h3>
+        <div class="price">₹15,000<span> /mo</span></div>
+        <ul>
+          <li>Up to ₹1,50,000 monthly ad spend</li>
+          <li>Sponsored Products management</li>
+          <li>Weekly optimization</li>
+          <li>Monthly report</li>
+        </ul>
+        <a href="#contact">Start here</a>
+      </div>
+      <div class="plan featured">
+        <h3>Growth</h3>
+        <div class="price">₹28,000<span> /mo</span></div>
+        <ul>
+          <li>Up to ₹5,00,000 monthly ad spend</li>
+          <li>Full-funnel: SP, SB, SD</li>
+          <li>Weekly optimization + search-term review</li>
+          <li>Listing gap flagging</li>
+          <li>Founder-managed for first 90 days</li>
+        </ul>
+        <a href="#contact">Get started</a>
+      </div>
+      <div class="plan">
+        <h3>Scale</h3>
+        <div class="price">Custom</div>
+        <ul>
+          <li>₹5,00,000+ monthly ad spend</li>
+          <li>Multi-marketplace campaigns</li>
+          <li>Dedicated weekly call</li>
+          <li>Custom bid rules by catalog</li>
+        </ul>
+        <a href="#contact">Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact" style="border-top: 1px solid var(--line);">
+    <h2>Send us your Amazon seller account. We'll show you what we'd change.</h2>
+    <p>Free audit, no obligation — a plain report of where your ad spend is leaking and what we'd fix first.</p>
+    <a class="btn-primary" href="mailto:hello@bidzo.digital">hello@bidzo.digital</a>
+  </section>
+
+  <footer>
+    <span>Bidzo — Amazon Ads management</span>
+    <span>Based in India · Working with sellers worldwide</span>
+  </footer>
+</div>

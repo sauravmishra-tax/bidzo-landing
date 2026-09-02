@@ -236,6 +236,89 @@
     padding: 32px; text-align: center; color: var(--ink-soft); font-size: 0.96rem;
   }
 
+  /* ---------- 5 core services (what we do) ---------- */
+  .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .service-grid { grid-template-columns: 1fr; } }
+  .service-card {
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 18px;
+    padding: 28px 26px; display: flex; flex-direction: column;
+  }
+  .service-card.wide { grid-column: span 1; }
+  .service-card .tag {
+    display: inline-flex; align-self: flex-start; font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--orange);
+    background: var(--orange-bg); border-radius: 999px; padding: 4px 12px; margin-bottom: 16px;
+  }
+  .service-card .ico {
+    width: 46px; height: 46px; border-radius: 13px; background: var(--dark); color: var(--orange-bright);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 18px; flex-shrink: 0;
+  }
+  .service-card h3 { font-size: 1.14rem; font-weight: 700; }
+  .service-card p.desc { color: var(--ink-soft); margin-top: 10px; font-size: 0.94rem; font-weight: 400; flex-grow: 1; }
+  .service-card ul { list-style: none; margin: 18px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 9px; }
+  .service-card ul li { display: flex; gap: 9px; font-size: 0.86rem; color: var(--ink); font-weight: 500; }
+  .service-card ul li .mark { color: var(--orange); font-weight: 800; flex-shrink: 0; }
+
+  /* ---------- process timeline ---------- */
+  .process-list { display: flex; flex-direction: column; margin-top: 8px; }
+  .process-item { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 22px; padding-bottom: 44px; }
+  .process-item:last-child { padding-bottom: 0; }
+  .process-item:not(:last-child)::before {
+    content: ""; position: absolute; top: 56px; bottom: 0; left: 27px; width: 2px; background: var(--line);
+  }
+  .process-idx {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--dark); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.05rem;
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .process-item.final .process-idx { background: var(--orange); color: #fff; }
+  .process-item h3 { font-size: 1.12rem; font-weight: 700; padding-top: 12px; }
+  .process-item p { color: var(--ink-soft); margin-top: 8px; font-size: 0.97rem; font-weight: 400; max-width: 62ch; }
+
+  /* ---------- contact ---------- */
+  .contact-wrap { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: start; }
+  @media (max-width: 900px) { .contact-wrap { grid-template-columns: 1fr; gap: 36px; } }
+  .contact-points { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .contact-points li { display: flex; gap: 12px; font-size: 0.95rem; color: var(--ink-soft); }
+  .contact-points .mark { color: var(--orange); font-weight: 800; flex-shrink: 0; }
+  .contact-detail {
+    margin-top: 32px; display: flex; align-items: center; gap: 14px;
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+  }
+  .contact-detail .ico {
+    width: 40px; height: 40px; border-radius: 11px; background: var(--orange-bg); color: var(--orange);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-detail a { text-decoration: none; font-weight: 600; }
+  .contact-detail a:hover { color: var(--orange); }
+  .contact-detail .cd-label { font-size: 0.78rem; color: var(--ink-soft); }
+
+  .contact-card {
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 20px;
+    padding: 34px; box-shadow: 0 30px 60px -40px rgba(20,18,15,0.18);
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+  .form-field label { font-size: 0.82rem; font-weight: 600; color: var(--ink-soft); }
+  .form-field input, .form-field textarea {
+    font-family: var(--sans); font-size: 0.95rem; padding: 13px 15px; border: 1px solid var(--line);
+    border-radius: 11px; background: var(--paper); color: var(--ink); outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-field input:focus, .form-field textarea:focus {
+    border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-bg);
+  }
+  .form-field textarea { resize: vertical; min-height: 110px; font-family: var(--sans); }
+  .contact-card button.btn-primary { width: 100%; justify-content: center; border: none; cursor: pointer; font-family: var(--sans); }
+  .form-note { font-size: 0.8rem; color: var(--ink-soft); margin-top: 14px; text-align: center; }
+  .form-success {
+    display: none; align-items: center; gap: 10px; background: var(--orange-bg); color: var(--orange);
+    border-radius: 12px; padding: 14px 16px; font-size: 0.9rem; font-weight: 600; margin-bottom: 18px;
+  }
+  .form-success.show { display: flex; }
+
   /* ---------- scroll reveal ---------- */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -266,10 +349,10 @@
     <div class="brand">BIDZ<span class="o">O</span></div>
     <nav class="links">
       <a href="#services">Services</a>
-      <a href="#help">Who we help</a>
-      <a href="#audit">Free audit</a>
+      <a href="#process">Process</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
     </nav>
     <a class="nav-cta" href="#contact">Book Free Audit</a>
   </div>
@@ -399,34 +482,118 @@
 
   <section id="services">
     <div class="section-head reveal">
-      <div class="eyebrow">Services</div>
-      <h2>Everything your Amazon Ads account needs, under one roof.</h2>
-      <p>Pick a full done-for-you setup, or bring us in for the piece that's currently broken.</p>
+      <div class="eyebrow">What we do</div>
+      <h2>Five ways we grow your Amazon business, under one roof.</h2>
+      <p>Start with a free audit, then pick a full done-for-you setup — or bring us in for the piece that's currently broken.</p>
     </div>
-    <div class="service-list reveal">
-      <div class="service-row">
-        <div class="ico">➤</div>
-        <div><h3>Sponsored Products</h3><p>Keyword and product targeting built around real search intent, not guesswork bidding.</p></div>
+    <div class="service-grid reveal">
+      <div class="service-card">
+        <span class="tag">Step 1 · Free</span>
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+        <h3>Free Audit</h3>
+        <p class="desc">We analyze your current Amazon account, listings, advertising performance, sales, keywords and overall account health — and the initial audit costs you nothing.</p>
+        <ul>
+          <li><span class="mark">→</span> Listing &amp; content review</li>
+          <li><span class="mark">→</span> Ad performance analysis</li>
+          <li><span class="mark">→</span> Keyword &amp; search term audit</li>
+          <li><span class="mark">→</span> Full account health check</li>
+        </ul>
       </div>
-      <div class="service-row">
-        <div class="ico">▤</div>
-        <div><h3>Sponsored Brands</h3><p>Headline and store-front campaigns that build brand recall while they sell.</p></div>
+      <div class="service-card">
+        <span class="tag">Brand</span>
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5Z"></path></svg></div>
+        <h3>Brand Creation</h3>
+        <p class="desc">We help you build and strengthen your presence on Amazon — a brand that looks credible, ranks well and converts browsers into buyers.</p>
+        <ul>
+          <li><span class="mark">→</span> Brand positioning</li>
+          <li><span class="mark">→</span> Listing optimization</li>
+          <li><span class="mark">→</span> Content strategy &amp; A+ pages</li>
+          <li><span class="mark">→</span> Overall marketplace presence</li>
+        </ul>
       </div>
-      <div class="service-row">
-        <div class="ico">▥</div>
-        <div><h3>Sponsored Display</h3><p>Retargeting for shoppers who viewed but didn't buy — and your competitors' pages.</p></div>
-      </div>
-      <div class="service-row">
+      <div class="service-card">
+        <span class="tag">Ads</span>
         <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
-        <div><h3>Bid &amp; budget optimization</h3><p>Ongoing bid adjustments based on placement, time of day, and conversion data.</p></div>
+        <h3>Amazon Ads</h3>
+        <p class="desc">Full Amazon PPC management — Sponsored Products, Brands &amp; Display — built around real search intent, not guesswork bidding.</p>
+        <ul>
+          <li><span class="mark">→</span> Campaign strategy &amp; structure</li>
+          <li><span class="mark">→</span> Keyword research</li>
+          <li><span class="mark">→</span> Bid &amp; budget management</li>
+          <li><span class="mark">→</span> Search term analysis</li>
+          <li><span class="mark">→</span> Performance tracking</li>
+        </ul>
       </div>
-      <div class="service-row">
-        <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
-        <div><h3>Keyword &amp; negative research</h3><p>Finding the terms that convert, and cutting the ones quietly draining your budget.</p></div>
+      <div class="service-card">
+        <span class="tag">Fulfilment</span>
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" y1="22" x2="12" y2="12"></line></svg></div>
+        <h3>FBA Onboarding</h3>
+        <p class="desc">New to Fulfilment by Amazon? We guide you through setup, inventory planning and fulfillment so your launch goes smoothly, not sideways.</p>
+        <ul>
+          <li><span class="mark">→</span> FBA setup guidance</li>
+          <li><span class="mark">→</span> Inventory planning</li>
+          <li><span class="mark">→</span> Shipment &amp; fulfillment support</li>
+        </ul>
       </div>
-      <div class="service-row">
-        <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1Z"></path><rect x="5" y="6" width="14" height="15" rx="2"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="15" y2="16"></line></svg></div>
-        <div><h3>Reporting &amp; account audits</h3><p>Clear, plain-English reporting so you always know why the numbers moved.</p></div>
+      <div class="service-card">
+        <span class="tag">Growth</span>
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 6"></polyline><polyline points="15 6 21 6 21 12"></polyline></svg></div>
+        <h3>Growing You Profitably</h3>
+        <p class="desc">We focus on sustainable, profitable growth — not just more sales. Real margin, efficient ad spend and steady organic gains, quarter after quarter.</p>
+        <ul>
+          <li><span class="mark">→</span> Profitability over vanity sales</li>
+          <li><span class="mark">→</span> Efficient ad spend</li>
+          <li><span class="mark">→</span> Organic growth &amp; conversion rate</li>
+          <li><span class="mark">→</span> Long-term account growth</li>
+        </ul>
+      </div>
+    </div>
+    <div class="center reveal" style="margin-top:36px;">
+      <a class="btn-primary" href="#contact">Book Free Amazon Ads Audit</a>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="section-head reveal">
+      <div class="eyebrow">Process</div>
+      <h2>How we take you from audit to long-term growth partner.</h2>
+      <p>No black box. Here's exactly what happens after you reach out — and what continues long after.</p>
+    </div>
+    <div class="process-list reveal">
+      <div class="process-item">
+        <div class="process-idx">01</div>
+        <div>
+          <h3>Free Audit</h3>
+          <p>We analyze your account and identify current problems, opportunities and growth areas — no cost, no obligation.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-idx">02</div>
+        <div>
+          <h3>Plan Creation</h3>
+          <p>We build a customized growth strategy based on the audit findings and your specific brand goals.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-idx">03</div>
+        <div>
+          <h3>Team Allotment</h3>
+          <p>We assign the right specialists — ads, listings, FBA — to manage and execute your strategy hands-on.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-idx">04</div>
+        <div>
+          <h3>Successful Execution</h3>
+          <p>We implement the strategy, continuously optimize performance, and track results against real targets.</p>
+        </div>
+      </div>
+      <div class="process-item final">
+        <div class="process-idx">05</div>
+        <div>
+          <h3>Your Lifetime Growth Partner</h3>
+          <p>We stick around. As your account matures, we keep adapting the strategy — a long-term partner, not a short-term service provider.</p>
+        </div>
       </div>
     </div>
     <div class="center reveal" style="margin-top:36px;">
@@ -512,44 +679,40 @@
         <div class="faq-a"><p>Yes — no cost, no obligation. We review your account and tell you what we'd change whether or not you sign up.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">How soon can you start working?<span class="faq-toggle">+</span></button>
+        <button class="faq-q">How soon can you start on my account?<span class="faq-toggle">+</span></button>
         <div class="faq-a"><p>We can start the audit within a day of getting access, and typically have a rebuilt plan live within the first week.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Do I need a minimum ad budget to work with BIDZO?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>No fixed minimum — we scope the engagement and pricing to your account size after the free audit.</p></div>
+        <div class="faq-a"><p>No fixed minimum — we scope the engagement and pricing to your account size and category after the free audit.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Will I lose control of my Seller Central account?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>No. You keep full ownership and admin access — we work as a user on your account and can be removed anytime.</p></div>
+        <div class="faq-a"><p>No. You keep full ownership and admin access at all times — we work as a user on your account and can be removed anytime.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What makes BIDZO different from other Amazon Ads agencies?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>Direct founder involvement, a dedicated (not shared) team, weekly optimization instead of set-and-forget, and no lock-in contract.</p></div>
+        <div class="faq-a"><p>Direct founder involvement, a dedicated (not shared) team, weekly optimization instead of set-and-forget, full transparency on spend, and no lock-in contract.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How do you report results?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>A short monthly report in plain language — what changed, why, and what we're testing next — plus a call if you want one.</p></div>
+        <div class="faq-a"><p>A clear, plain-language report on a set schedule — what changed, why, and what we're testing next — plus a call whenever you want one. No locked dashboards.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Can I grow my account in 1 month?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>Some accounts see early wins fast, but real, durable growth is a weekly-optimization process, not a one-month sprint — we'll be upfront about realistic timelines after the audit.</p></div>
+        <div class="faq-a"><p>You can usually see early improvements within the first month — fixed listing gaps, cleaner campaigns, less wasted spend. But sustainable growth depends on your product, category, competition, pricing, reviews, budget and account condition, and normally needs continuous optimization beyond month one. We'll give you a realistic view after the audit, not a countdown.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">What is your guarantee?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>No lock-in contract — month to month. If the numbers aren't moving in the direction we promised, you can cancel anytime.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Can I pause my ads without you?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>Yes — it's your account and your budget. You can pause, adjust, or take back control at any point.</p></div>
+        <button class="faq-q">What is the guarantee?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>We don't promise a specific sales number or a fixed growth percentage — anyone who does is guessing. What we commit to is a performance-focused approach: real weekly work on your account, full visibility into what changed and why, and no lock-in contract, so you're never stuck if the numbers aren't moving.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What will be the fees?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>A flat monthly fee based on the service tier and your account size — quoted after the free audit, no percentage-of-sales pricing.</p></div>
+        <div class="faq-a"><p>Pricing depends on your account size, catalog, ad spend and the scope of work involved — there's no one-size-fits-all number. Starting price ranges are on this page; get in touch for a customized plan after your free audit.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">How frequently will you optimize my account?<span class="faq-toggle">+</span></button>
-        <div class="faq-a"><p>Weekly — bids, budgets, negatives, and listing fixes are reviewed and adjusted every week, not left on autopilot.</p></div>
+        <button class="faq-q">How frequently will you work on my account?<span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>Bids, budgets, negatives and listing fixes are reviewed and adjusted weekly. You'll get a regular report on that same cadence, plus ad-hoc monitoring for anything that needs an immediate call — nothing is left on autopilot.</p></div>
       </div>
     </div>
   </section>
@@ -584,11 +747,59 @@
     </div>
   </section>
 
-  <section id="contact" class="reveal">
-    <div class="cta-dark">
-      <h2>Find the leaks in your Amazon ad spend before they cost you another month.</h2>
-      <p>Free 15-minute audit call, no contracts, no obligation — just a plain answer on where your budget is leaking and what we'd fix first.</p>
-      <a class="btn-primary orange" href="mailto:hello@bidzo.digital?subject=Free%20Amazon%20Ads%20Audit%20Request">Find My Leaks — Book Free Audit</a>
+  <section id="contact">
+    <div class="section-head reveal">
+      <div class="eyebrow">Contact us</div>
+      <h2>Let's find out what your Amazon account is leaving on the table.</h2>
+      <p>Tell us a bit about your brand and we'll come back with a free audit — a straight, specific look at what's working, what's not, and what we'd fix first.</p>
+    </div>
+    <div class="contact-wrap">
+      <div class="reveal">
+        <ul class="contact-points">
+          <li><span class="mark">→</span> A full breakdown of where ad spend, listings and account health are costing you sales.</li>
+          <li><span class="mark">→</span> A prioritized fix list — free, whether or not you ever work with us.</li>
+          <li><span class="mark">→</span> A response from a real person on the team, not an auto-reply.</li>
+        </ul>
+        <div class="contact-detail">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"></path><path d="m3 7 9 6 9-6"></path><rect x="3" y="5" width="18" height="14" rx="2"></rect></svg></div>
+          <div>
+            <div class="cd-label">Email us</div>
+            <a href="mailto:hello@bidzo.digital">hello@bidzo.digital</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div class="form-success" id="formSuccess">✓ Thanks — your email app should be open with your details filled in. Hit send and we'll reply within one business day.</div>
+        <form id="contactForm">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" placeholder="Your full name" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" placeholder="you@brand.com" required>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="cf-phone">Phone number</label>
+              <input id="cf-phone" name="phone" type="tel" placeholder="+91 00000 00000" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-brand">Brand / Company</label>
+              <input id="cf-brand" name="brand" type="text" placeholder="Your brand name" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="cf-message">Message / Requirement</label>
+            <textarea id="cf-message" name="message" placeholder="What would you like help with? (e.g. high ACoS, new launch, FBA setup...)" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary orange">Get My Free Audit</button>
+          <div class="form-note">No spam, no contracts — just a straight answer on your account.</div>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -600,7 +811,7 @@
     <div class="footer-col">
       <h4>Explore</h4>
       <a href="#services">Services</a>
-      <a href="#why">Our process</a>
+      <a href="#process">Our process</a>
       <a href="#resources">Insights</a>
     </div>
     <div class="footer-col">
@@ -653,5 +864,31 @@
       if (!wasOpen) item.classList.add('open');
     });
   });
+
+  var form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var email = form.email.value.trim();
+      var phone = form.phone.value.trim();
+      var brand = form.brand.value.trim();
+      var message = form.message.value.trim();
+
+      var subject = 'Free Amazon Ads Audit Request — ' + brand;
+      var body =
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Phone: ' + phone + '\n' +
+        'Brand/Company: ' + brand + '\n\n' +
+        'Requirement:\n' + message;
+
+      var mailto = 'mailto:hello@bidzo.digital?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.location.href = mailto;
+
+      var success = document.getElementById('formSuccess');
+      if (success) success.classList.add('show');
+    });
+  }
 })();
 </script>

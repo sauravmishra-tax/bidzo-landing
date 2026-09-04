@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BIDZO Audit Branding Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  :root {
+    --orange: #FE7004;
+    --black: #030A10;
+    --white: #FCFCFC;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: var(--white);
+    color: var(--black);
+  }
+  header {
+    padding: 22px 28px;
+    border-bottom: 1px solid #e6e6e6;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  header .brand { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; }
+  header .brand .o { color: var(--orange); }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  h1 { font-size: 1.7rem; margin: 0 0 10px; letter-spacing: -0.02em; }
+  p.lede { color: #4b4b4b; margin: 0 0 36px; line-height: 1.55; }
+  .dropzone {
+    border: 2px dashed var(--orange);
+    border-radius: 14px;
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    background: #fff8f2;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .dropzone.drag { background: #ffe9d6; }
+  .dropzone p { margin: 0; font-weight: 600; }
+  .dropzone span { display: block; margin-top: 6px; font-size: 0.85rem; color: #6b6b6b; font-weight: 400; }
+  input[type=file] { display: none; }
+  .status {
+    margin-top: 24px;
+    font-size: 0.92rem;
+    min-height: 1.4em;
+  }
+  .status.error { color: #b3260c; }
+  .status.ok { color: #1a7a1a; }
+  .file-pill {
+    margin-top: 18px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .file-pill.show { display: flex; }
+  .file-pill span { font-size: 0.9rem; }
+  .btn {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 26px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 22px;
+  }
+  .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+  ul.rules {
+    margin: 34px 0 0;
+    padding: 20px 22px;
+    background: #fafafa;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #444;
+    line-height: 1.7;
+  }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">BIDZ<span class="o">O</span></span>
+  <span style="color:#888;font-size:0.85rem;">Audit Branding Tool</span>
+</header>
+<main>
+  <h1>Brand your audit file</h1>
+  <p class="lede">Upload the raw audit workbook (.xlsx). It's automatically recoloured to the BIDZO palette, sheets are renamed, and the unwanted sheet is removed — all formulas, calculations and data stay exactly as they were. Nothing is uploaded anywhere; everything runs in your browser.</p>
+
+  <div class="dropzone" id="dropzone">
+    <p>Drop the audit .xlsx here, or click to choose a file</p>
+    <span>Only .xlsx files are supported</span>
+    <input type="file" id="fileInput" accept=".xlsx">
+  </div>
+
+  <div class="file-pill" id="filePill">
+    <span id="fileName"></span>
+    <button class="btn" id="downloadBtn" style="margin:0;">Download branded file</button>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <ul class="rules">
+    <li><span class="swatch" style="background:#FE7004"></span>Orange #FE7004 — highlights &amp; important elements</li>
+    <li><span class="swatch" style="background:#030A10"></span>Black #030A10 — text &amp; primary content</li>
+    <li><span class="swatch" style="background:#FCFCFC;border:1px solid #ddd"></span>White #FCFCFC — backgrounds</li>
+    <li style="margin-top:10px;">Sheet renames: Data → Account Overview, Campaign Opp Board → Current Spend Split, Category Wise → Category Insights. "Where Can We Go" is kept as is. "Ads Opp Board (Product Level)" is removed.</li>
+  </ul>
+</main>
+
+<script>
+const BLACK = "030A10";
+const WHITE = "FCFCFC";
+const ORANGE = "FE7004";
+
+const SHEET_RENAMES = {
+  "Data": "Account Overview",
+  "Campaign Opp Board": "Current Spend Split",
+  "Category Wise": "Category Insights",
+};
+const SHEET_TO_REMOVE = "Ads Opp Board (Product Level)";
+
+function luminance(hex) {
+  const r = parseInt(hex.slice(0, 2), 16) / 255;
+  const g = parseInt(hex.slice(2, 4), 16) / 255;
+  const b = parseInt(hex.slice(4, 6), 16) / 255;
+  const lin = c => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  const [rl, gl, bl] = [lin(r), lin(g), lin(b)];
+  return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
+}
+
+function brandFor(hex) {
+  hex = hex.toUpperCase();
+  if (hex === BLACK || hex === WHITE || hex === ORANGE) return hex;
+  const lum = luminance(hex);
+  if (lum >= 0.85) return WHITE;
+  if (lum <= 0.2) return BLACK;
+  return ORANGE;
+}
+
+function recolorArgb(xml) {
+  return xml.replace(/rgb="([0-9A-Fa-f]{2})([0-9A-Fa-f]{6})"/g, (m, alpha, rgb) => `rgb="${alpha}${brandFor(rgb)}"`);
+}
+
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+async function transformWorkbook(arrayBuffer) {
+  const zip = await JSZip.loadAsync(arrayBuffer);
+
+  // ---- workbook.xml: rename + locate/remove sheet ----
+  let wb = await zip.file("xl/workbook.xml").async("string");
+  for (const [oldName, newName] of Object.entries(SHEET_RENAMES)) {
+    wb = wb.split(`name="${oldName}"`).join(`name="${newName}"`);
+  }
+
+  const sheetTagRe = new RegExp(`<sheet [^>]*name="${escapeRegExp(SHEET_TO_REMOVE)}"[^>]*/>`);
+  const sheetTagMatch = wb.match(sheetTagRe);
+  if (!sheetTagMatch) throw new Error(`Could not find sheet "${SHEET_TO_REMOVE}" in the workbook.`);
+  const sheetTag = sheetTagMatch[0];
+  const ridMatch = sheetTag.match(/r:id="(rId\d+)"/);
+  const removedRid = ridMatch[1];
+  wb = wb.replace(sheetTag, "");
+  zip.file("xl/workbook.xml", wb);
+
+  // ---- workbook.xml.rels: drop relationship, find target part ----
+  let rels = await zip.file("xl/_rels/workbook.xml.rels").async("string");
+  const relRe = new RegExp(`<Relationship [^>]*Id="${removedRid}"[^>]*/>`);
+  const relMatch = rels.match(relRe);
+  if (!relMatch) throw new Error("Could not find the relationship for the removed sheet.");
+  const targetMatch = relMatch[0].match(/Target="([^"]+)"/);
+  const removedPart = "xl/" + targetMatch[1];
+  rels = rels.replace(relMatch[0], "");
+  zip.file("xl/_rels/workbook.xml.rels", rels);
+
+  // ---- [Content_Types].xml: drop override for removed sheet ----
+  let ct = await zip.file("[Content_Types].xml").async("string");
+  const ctRe = new RegExp(`<Override PartName="/${escapeRegExp(removedPart)}"[^>]*/>`);
+  const ctMatch = ct.match(ctRe);
+  if (ctMatch) {
+    ct = ct.replace(ctMatch[0], "");
+    zip.file("[Content_Types].xml", ct);
+  }
+
+  // ---- drop the worksheet part itself ----
+  zip.remove(removedPart);
+
+  // ---- docProps/app.xml: rename, drop title, fix vector size ----
+  const appFile = zip.file("docProps/app.xml");
+  if (appFile) {
+    let app = await appFile.async("string");
+    for (const [oldName, newName] of Object.entries(SHEET_RENAMES)) {
+      app = app.split(`<vt:lpstr>${oldName}</vt:lpstr>`).join(`<vt:lpstr>${newName}</vt:lpstr>`);
+    }
+    app = app.split(`<vt:lpstr>${SHEET_TO_REMOVE}</vt:lpstr>`).join("");
+    const sizeMatch = app.match(/<vt:vector size="(\d+)" baseType="lpstr">/);
+    if (sizeMatch) {
+      const oldSize = parseInt(sizeMatch[1], 10);
+      const newSize = oldSize - 1;
+      app = app.replace(`<vt:vector size="${oldSize}" baseType="lpstr">`, `<vt:vector size="${newSize}" baseType="lpstr">`);
+      app = app.replace(`<vt:variant><vt:i4>${oldSize}</vt:i4></vt:variant>`, `<vt:variant><vt:i4>${newSize}</vt:i4></vt:variant>`);
+    }
+    zip.file("docProps/app.xml", app);
+  }
+
+  // ---- styles.xml: recolor every ARGB colour to the brand palette ----
+  const stylesFile = zip.file("xl/styles.xml");
+  if (stylesFile) {
+    let styles = await stylesFile.async("string");
+    styles = recolorArgb(styles);
+    zip.file("xl/styles.xml", styles);
+  }
+
+  // ---- theme1.xml: rebrand the theme colour scheme ----
+  const themeFile = zip.file("xl/theme/theme1.xml");
+  if (themeFile) {
+    let theme = await themeFile.async("string");
+    theme = theme.replace(/(<a:dk1>\s*<a:sysClr val="windowText" lastClr=")[0-9A-Fa-f]{6}(")/, `$1${BLACK}$2`);
+    theme = theme.replace(/(<a:lt1>\s*<a:sysClr val="window" lastClr=")[0-9A-Fa-f]{6}(")/, `$1${WHITE}$2`);
+    theme = theme.replace(/(<a:dk2>\s*<a:srgbClr val=")[0-9A-Fa-f]{6}(")/, `$1${BLACK}$2`);
+    theme = theme.replace(/(<a:lt2>\s*<a:srgbClr val=")[0-9A-Fa-f]{6}(")/, `$1${WHITE}$2`);
+    for (const tag of ["accent1", "accent2", "accent3", "accent4", "accent5", "accent6", "hlink", "folHlink"]) {
+      const re = new RegExp(`(<a:${tag}>\\s*<a:srgbClr val=")[0-9A-Fa-f]{6}(")`);
+      theme = theme.replace(re, `$1${ORANGE}$2`);
+    }
+    zip.file("xl/theme/theme1.xml", theme);
+  }
+
+  return zip.generateAsync({
+    type: "blob",
+    mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+}
+
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("fileInput");
+const statusEl = document.getElementById("status");
+const filePill = document.getElementById("filePill");
+const fileNameEl = document.getElementById("fileName");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let outputBlob = null;
+let outputName = "audit.xlsx";
+
+function setStatus(msg, cls) {
+  statusEl.textContent = msg;
+  statusEl.className = "status" + (cls ? " " + cls : "");
+}
+
+async function handleFile(file) {
+  if (!file) return;
+  if (!file.name.toLowerCase().endsWith(".xlsx")) {
+    setStatus("Please upload a .xlsx file.", "error");
+    return;
+  }
+  filePill.classList.remove("show");
+  setStatus("Processing " + file.name + " …");
+  try {
+    const buffer = await file.arrayBuffer();
+    outputBlob = await transformWorkbook(buffer);
+    outputName = file.name.replace(/\.xlsx$/i, "") + " - BIDZO.xlsx";
+    fileNameEl.textContent = outputName;
+    filePill.classList.add("show");
+    setStatus("Done — branding applied, sheets updated.", "ok");
+  } catch (err) {
+    console.error(err);
+    setStatus("Could not process this file: " + err.message, "error");
+  }
+}
+
+dropzone.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", e => handleFile(e.target.files[0]));
+
+["dragenter", "dragover"].forEach(evt =>
+  dropzone.addEventListener(evt, e => {
+    e.preventDefault();
+    dropzone.classList.add("drag");
+  })
+);
+["dragleave", "drop"].forEach(evt =>
+  dropzone.addEventListener(evt, e => {
+    e.preventDefault();
+    dropzone.classList.remove("drag");
+  })
+);
+dropzone.addEventListener("drop", e => {
+  const file = e.dataTransfer.files[0];
+  handleFile(file);
+});
+
+downloadBtn.addEventListener("click", () => {
+  if (!outputBlob) return;
+  const url = URL.createObjectURL(outputBlob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = outputName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>

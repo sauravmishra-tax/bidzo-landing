@@ -95,22 +95,17 @@
   }
   .hero-micro .clock-ico { color: var(--orange); flex-shrink: 0; }
 
-  /* ---------- dark stat panel ---------- */
+  /* ---------- brand showcase panel ---------- */
   .panel {
-    background: var(--dark); color: #fff; border-radius: 20px;
-    padding: 22px 24px 26px; box-shadow: 0 30px 60px -30px rgba(0,0,0,0.5);
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 20px;
+    padding: 26px 26px 30px; box-shadow: 0 30px 60px -35px rgba(20,18,15,0.25);
   }
-  .panel-head { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: #a39d90; margin-bottom: 22px; }
-  .panel-head .live { color: #7fd9a8; display: flex; align-items: center; gap: 6px; }
-  .panel-head .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #7fd9a8; animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-  .panel-brands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .panel-brands .logo-chip {
-    background: #fff; border-radius: 10px; height: 54px; padding: 8px 12px;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  .panel-head { font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 22px; }
+  .panel-brands {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 16px; align-items: center;
   }
-  .panel-brands img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .panel-brands .logo-chip { display: flex; align-items: center; justify-content: center; }
+  .panel-brands img { max-width: 100%; height: 38px; object-fit: contain; display: block; }
 
   /* ---------- floating widgets ---------- */
   .floaters { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 40; }
@@ -205,10 +200,9 @@
   @media (prefers-reduced-motion: reduce) { .brand-track { animation: none; } }
   .brand-chip {
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    background: #fff; border-radius: 12px; height: 64px; padding: 10px 22px;
-    box-shadow: 0 3px 12px rgba(20,18,15,0.08);
+    height: 52px; padding: 0 26px;
   }
-  .brand-chip img { max-width: 150px; max-height: 100%; width: auto; height: 100%; object-fit: contain; display: block; }
+  .brand-chip img { max-width: 140px; max-height: 100%; width: auto; height: 100%; object-fit: contain; display: block; }
 
   /* ---------- meet the founders ---------- */
   .founder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -363,17 +357,17 @@
         <span>Brands we've grown</span>
       </div>
       <div class="panel-brands">
-        <div class="logo-chip"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
-        <div class="logo-chip"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
-        <div class="logo-chip"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
-        <div class="logo-chip"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
-        <div class="logo-chip"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
-        <div class="logo-chip"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
-        <div class="logo-chip"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
-        <div class="logo-chip"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
-        <div class="logo-chip"><img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn"></div>
-        <div class="logo-chip"><img src="assets/logos/athmonk.jpg" alt="Athmonk"></div>
-        <div class="logo-chip"><img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite"></div>
+        <div class="logo-chip"><img src="assets/logos/herbal-mitra.png" alt="Herbal Mitra"></div>
+        <div class="logo-chip"><img src="assets/logos/tidy-fox.png" alt="Tidy Fox"></div>
+        <div class="logo-chip"><img src="assets/logos/lovely-moms.png" alt="Lovely Moms"></div>
+        <div class="logo-chip"><img src="assets/logos/saf-paintings.png" alt="SAF Paintings"></div>
+        <div class="logo-chip"><img src="assets/logos/zfp.png" alt="ZFP"></div>
+        <div class="logo-chip"><img src="assets/logos/sattva-ayurveda.png" alt="Sattva Ayurveda"></div>
+        <div class="logo-chip"><img src="assets/logos/moto-genius.png" alt="Moto Genius"></div>
+        <div class="logo-chip"><img src="assets/logos/minute-to-cleanit.png" alt="Minute To Cleanit"></div>
+        <div class="logo-chip"><img src="assets/logos/clothe-funn.png" alt="Clothe Funn"></div>
+        <div class="logo-chip"><img src="assets/logos/athmonk.png" alt="Athmonk"></div>
+        <div class="logo-chip"><img src="assets/logos/gadget-bite.png" alt="Gadget Bite"></div>
       </div>
     </div>
   </section>
@@ -527,28 +521,28 @@
     </div>
     <div class="brand-marquee reveal">
       <div class="brand-track">
-        <div class="brand-chip"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
-        <div class="brand-chip"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
-        <div class="brand-chip"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
-        <div class="brand-chip"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
-        <div class="brand-chip"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
-        <div class="brand-chip"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
-        <div class="brand-chip"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
-        <div class="brand-chip"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
-        <div class="brand-chip"><img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn"></div>
-        <div class="brand-chip"><img src="assets/logos/athmonk.jpg" alt="Athmonk"></div>
-        <div class="brand-chip"><img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite"></div>
-        <div class="brand-chip"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
-        <div class="brand-chip"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
-        <div class="brand-chip"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
-        <div class="brand-chip"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
-        <div class="brand-chip"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
-        <div class="brand-chip"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
-        <div class="brand-chip"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
-        <div class="brand-chip"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
-        <div class="brand-chip"><img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn"></div>
-        <div class="brand-chip"><img src="assets/logos/athmonk.jpg" alt="Athmonk"></div>
-        <div class="brand-chip"><img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite"></div>
+        <div class="brand-chip"><img src="assets/logos/herbal-mitra.png" alt="Herbal Mitra"></div>
+        <div class="brand-chip"><img src="assets/logos/tidy-fox.png" alt="Tidy Fox"></div>
+        <div class="brand-chip"><img src="assets/logos/lovely-moms.png" alt="Lovely Moms"></div>
+        <div class="brand-chip"><img src="assets/logos/saf-paintings.png" alt="SAF Paintings"></div>
+        <div class="brand-chip"><img src="assets/logos/zfp.png" alt="ZFP"></div>
+        <div class="brand-chip"><img src="assets/logos/sattva-ayurveda.png" alt="Sattva Ayurveda"></div>
+        <div class="brand-chip"><img src="assets/logos/moto-genius.png" alt="Moto Genius"></div>
+        <div class="brand-chip"><img src="assets/logos/minute-to-cleanit.png" alt="Minute To Cleanit"></div>
+        <div class="brand-chip"><img src="assets/logos/clothe-funn.png" alt="Clothe Funn"></div>
+        <div class="brand-chip"><img src="assets/logos/athmonk.png" alt="Athmonk"></div>
+        <div class="brand-chip"><img src="assets/logos/gadget-bite.png" alt="Gadget Bite"></div>
+        <div class="brand-chip"><img src="assets/logos/herbal-mitra.png" alt="Herbal Mitra"></div>
+        <div class="brand-chip"><img src="assets/logos/tidy-fox.png" alt="Tidy Fox"></div>
+        <div class="brand-chip"><img src="assets/logos/lovely-moms.png" alt="Lovely Moms"></div>
+        <div class="brand-chip"><img src="assets/logos/saf-paintings.png" alt="SAF Paintings"></div>
+        <div class="brand-chip"><img src="assets/logos/zfp.png" alt="ZFP"></div>
+        <div class="brand-chip"><img src="assets/logos/sattva-ayurveda.png" alt="Sattva Ayurveda"></div>
+        <div class="brand-chip"><img src="assets/logos/moto-genius.png" alt="Moto Genius"></div>
+        <div class="brand-chip"><img src="assets/logos/minute-to-cleanit.png" alt="Minute To Cleanit"></div>
+        <div class="brand-chip"><img src="assets/logos/clothe-funn.png" alt="Clothe Funn"></div>
+        <div class="brand-chip"><img src="assets/logos/athmonk.png" alt="Athmonk"></div>
+        <div class="brand-chip"><img src="assets/logos/gadget-bite.png" alt="Gadget Bite"></div>
       </div>
     </div>
     <div class="results-note reveal" style="margin-top:28px;">Detailed case studies and verified numbers are added here as they come in — no invented figures.</div>

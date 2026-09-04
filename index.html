@@ -104,8 +104,13 @@
   .panel-head .live { color: #7fd9a8; display: flex; align-items: center; gap: 6px; }
   .panel-head .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #7fd9a8; animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-  .panel-brands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px 20px; align-items: center; }
-  .panel-brands img { width: 100%; height: 46px; object-fit: contain; display: block; }
+  .panel-brands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .panel-brands .logo-chip {
+    background: #fff; border-radius: 10px; height: 54px; padding: 8px 12px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .panel-brands img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 
   /* ---------- floating widgets ---------- */
   .floaters { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 40; }
@@ -194,15 +199,16 @@
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
-  .brand-track { display: flex; gap: 4px; width: max-content; animation: brand-scroll 42s linear infinite; }
+  .brand-track { display: flex; gap: 14px; width: max-content; animation: brand-scroll 42s linear infinite; }
   .brand-marquee:hover .brand-track { animation-play-state: paused; }
   @keyframes brand-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .brand-track { animation: none; } }
   .brand-chip {
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    height: 72px; padding: 0 28px;
+    background: #fff; border-radius: 12px; height: 64px; padding: 10px 22px;
+    box-shadow: 0 3px 12px rgba(20,18,15,0.08);
   }
-  .brand-chip img { max-width: 220px; max-height: 100%; width: auto; height: 100%; object-fit: contain; display: block; }
+  .brand-chip img { max-width: 150px; max-height: 100%; width: auto; height: 100%; object-fit: contain; display: block; }
 
   /* ---------- meet the founders ---------- */
   .founder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -357,17 +363,17 @@
         <span>Brands we've grown</span>
       </div>
       <div class="panel-brands">
-        <img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra">
-        <img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox">
-        <img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms">
-        <img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings">
-        <img src="assets/logos/zfp.jpg" alt="ZFP">
-        <img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda">
-        <img src="assets/logos/moto-genius.jpg" alt="Moto Genius">
-        <img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit">
-        <img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn">
-        <img src="assets/logos/athmonk.jpg" alt="Athmonk">
-        <img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite">
+        <div class="logo-chip"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
+        <div class="logo-chip"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
+        <div class="logo-chip"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
+        <div class="logo-chip"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
+        <div class="logo-chip"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
+        <div class="logo-chip"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
+        <div class="logo-chip"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
+        <div class="logo-chip"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
+        <div class="logo-chip"><img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn"></div>
+        <div class="logo-chip"><img src="assets/logos/athmonk.jpg" alt="Athmonk"></div>
+        <div class="logo-chip"><img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite"></div>
       </div>
     </div>
   </section>

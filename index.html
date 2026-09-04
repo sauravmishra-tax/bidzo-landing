@@ -104,15 +104,15 @@
   .panel-head .live { color: #7fd9a8; display: flex; align-items: center; gap: 6px; }
   .panel-head .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #7fd9a8; animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-  .panel-big { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+  .panel-big { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
   .panel-big .num { font-size: 2.2rem; font-weight: 800; color: var(--orange-bright); }
   .panel-big .desc { font-size: 0.82rem; color: #a39d90; }
-  .bars { display: flex; align-items: flex-end; gap: 8px; height: 90px; margin-bottom: 18px; }
-  .bars i { flex: 1; background: linear-gradient(180deg, var(--orange-bright), var(--orange)); border-radius: 6px 6px 2px 2px; display: block; }
-  .panel-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-top: 1px solid #2c2820; padding-top: 16px; }
-  .panel-metrics div { font-size: 0.78rem; }
-  .panel-metrics .m-label { font-weight: 600; color: #fff; }
-  .panel-metrics .m-sub { color: #7d7666; margin-top: 2px; }
+  .panel-brands { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .panel-brand-tile {
+    background: #fff; border-radius: 10px; padding: 10px; height: 58px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .panel-brand-tile img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 
   /* ---------- floating widgets ---------- */
   .floaters { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 40; }
@@ -206,14 +206,11 @@
   @keyframes brand-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .brand-track { animation: none; } }
   .brand-chip {
-    display: flex; align-items: center; gap: 12px; flex-shrink: 0; white-space: nowrap;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     background: var(--paper-raised); border: 1px solid var(--line); border-radius: 14px;
-    padding: 16px 24px; font-weight: 700; font-size: 1rem; color: var(--ink);
+    width: 168px; height: 84px; padding: 14px 18px;
   }
-  .brand-chip .mono {
-    width: 32px; height: 32px; border-radius: 9px; background: var(--dark); color: var(--orange-bright);
-    display: flex; align-items: center; justify-content: center; font-size: 0.86rem; font-weight: 800; flex-shrink: 0;
-  }
+  .brand-chip img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 
   /* ---------- meet the founders ---------- */
   .founder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -365,21 +362,22 @@
 
     <div class="panel">
       <div class="panel-head">
-        <span>Account snapshot</span>
+        <span>Brands we've grown</span>
         <span class="live">Live view</span>
       </div>
       <div class="panel-big">
-        <span class="num">ACoS</span>
-        <span class="desc">the number most sellers never actually control</span>
+        <span class="num">11</span>
+        <span class="desc">Amazon brands currently trusting BIDZO with their ad spend</span>
       </div>
-      <div class="bars">
-        <i style="height:38%"></i><i style="height:62%"></i><i style="height:28%"></i><i style="height:78%"></i>
-        <i style="height:52%"></i><i style="height:88%"></i><i style="height:70%"></i><i style="height:96%"></i>
-      </div>
-      <div class="panel-metrics">
-        <div><div class="m-label">Spend</div><div class="m-sub">Tracked daily</div></div>
-        <div><div class="m-label">Wasted clicks</div><div class="m-sub">Flagged weekly</div></div>
-        <div><div class="m-label">Winning terms</div><div class="m-sub">Scaled fast</div></div>
+      <div class="panel-brands">
+        <div class="panel-brand-tile"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
+        <div class="panel-brand-tile"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
       </div>
     </div>
   </section>
@@ -534,28 +532,28 @@
     </div>
     <div class="brand-marquee reveal">
       <div class="brand-track">
-        <div class="brand-chip"><span class="mono">HM</span>Herbal Mitra</div>
-        <div class="brand-chip"><span class="mono">TF</span>Tidy Fox</div>
-        <div class="brand-chip"><span class="mono">LM</span>Lovely Moms</div>
-        <div class="brand-chip"><span class="mono">SP</span>SAF Paintings</div>
-        <div class="brand-chip"><span class="mono">ZF</span>ZFP</div>
-        <div class="brand-chip"><span class="mono">SA</span>Sattva Ayurveda</div>
-        <div class="brand-chip"><span class="mono">MG</span>Moto Genius</div>
-        <div class="brand-chip"><span class="mono">MC</span>Minute To Cleanit</div>
-        <div class="brand-chip"><span class="mono">CF</span>Clothe Funn</div>
-        <div class="brand-chip"><span class="mono">AT</span>Athmonk</div>
-        <div class="brand-chip"><span class="mono">GB</span>Gadget Bite</div>
-        <div class="brand-chip"><span class="mono">HM</span>Herbal Mitra</div>
-        <div class="brand-chip"><span class="mono">TF</span>Tidy Fox</div>
-        <div class="brand-chip"><span class="mono">LM</span>Lovely Moms</div>
-        <div class="brand-chip"><span class="mono">SP</span>SAF Paintings</div>
-        <div class="brand-chip"><span class="mono">ZF</span>ZFP</div>
-        <div class="brand-chip"><span class="mono">SA</span>Sattva Ayurveda</div>
-        <div class="brand-chip"><span class="mono">MG</span>Moto Genius</div>
-        <div class="brand-chip"><span class="mono">MC</span>Minute To Cleanit</div>
-        <div class="brand-chip"><span class="mono">CF</span>Clothe Funn</div>
-        <div class="brand-chip"><span class="mono">AT</span>Athmonk</div>
-        <div class="brand-chip"><span class="mono">GB</span>Gadget Bite</div>
+        <div class="brand-chip"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
+        <div class="brand-chip"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
+        <div class="brand-chip"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
+        <div class="brand-chip"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
+        <div class="brand-chip"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
+        <div class="brand-chip"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
+        <div class="brand-chip"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
+        <div class="brand-chip"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
+        <div class="brand-chip"><img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn"></div>
+        <div class="brand-chip"><img src="assets/logos/athmonk.jpg" alt="Athmonk"></div>
+        <div class="brand-chip"><img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite"></div>
+        <div class="brand-chip"><img src="assets/logos/herbal-mitra.jpg" alt="Herbal Mitra"></div>
+        <div class="brand-chip"><img src="assets/logos/tidy-fox.jpg" alt="Tidy Fox"></div>
+        <div class="brand-chip"><img src="assets/logos/lovely-moms.jpg" alt="Lovely Moms"></div>
+        <div class="brand-chip"><img src="assets/logos/saf-paintings.jpg" alt="SAF Paintings"></div>
+        <div class="brand-chip"><img src="assets/logos/zfp.jpg" alt="ZFP"></div>
+        <div class="brand-chip"><img src="assets/logos/sattva-ayurveda.jpg" alt="Sattva Ayurveda"></div>
+        <div class="brand-chip"><img src="assets/logos/moto-genius.jpg" alt="Moto Genius"></div>
+        <div class="brand-chip"><img src="assets/logos/minute-to-cleanit.jpg" alt="Minute To Cleanit"></div>
+        <div class="brand-chip"><img src="assets/logos/clothe-funn.jpg" alt="Clothe Funn"></div>
+        <div class="brand-chip"><img src="assets/logos/athmonk.jpg" alt="Athmonk"></div>
+        <div class="brand-chip"><img src="assets/logos/gadget-bite.jpg" alt="Gadget Bite"></div>
       </div>
     </div>
     <div class="results-note reveal" style="margin-top:28px;">Detailed case studies and verified numbers are added here as they come in — no invented figures.</div>

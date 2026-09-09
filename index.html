@@ -1,3 +1,5 @@
+<!doctype html>
+<meta charset="utf-8">
 <title>Bidzo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -660,7 +662,8 @@
       </div>
 
       <div class="contact-card reveal">
-        <div class="form-success" id="formSuccess">✓ Thanks — your email app should be open with your details filled in. Hit send and we'll reply within one business day.</div>
+        <div class="form-success" id="formSuccess">✓ Thanks — we've got your details and will reply within one business day.</div>
+        <div class="form-error" id="formError" style="display:none;color:#b42318;font-size:0.85rem;margin-bottom:14px;"></div>
         <form id="contactForm">
           <div class="form-grid">
             <div class="form-field">
@@ -723,6 +726,30 @@
   </div>
 </div>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+  var firebaseConfig = {
+    apiKey: "AIzaSyD6d-vHrh9QJmrI_Wemgk88mWzdvahphTM",
+    authDomain: "bidzo-crm-5a6f3.firebaseapp.com",
+    projectId: "bidzo-crm-5a6f3",
+    storageBucket: "bidzo-crm-5a6f3.firebasestorage.app",
+    messagingSenderId: "1001262880296",
+    appId: "1:1001262880296:web:ebde2f5771b127bec2c71d"
+  };
+  window.__crmReadyPromise = (async () => {
+    try {
+      var app = initializeApp(firebaseConfig);
+      var fsdb = getFirestore(app);
+      var leadsCol = collection(fsdb, 'leads');
+      return (data) => addDoc(leadsCol, data);
+    } catch (e) {
+      console.error('CRM Firebase init failed', e);
+      return null;
+    }
+  })();
+</script>
+
 <div class="floaters">
   <a class="float-pill" href="#contact">✓ Talk to Our Team</a>
   <a class="float-circle call" href="tel:+918800876704" aria-label="Call"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"></path></svg></a>
@@ -766,19 +793,51 @@
       var brand = form.brand.value.trim();
       var message = form.message.value.trim();
 
-      var subject = 'Free Amazon Ads Audit Request — ' + brand;
-      var body =
-        'Name: ' + name + '\n' +
-        'Email: ' + email + '\n' +
-        'Phone: ' + phone + '\n' +
-        'Brand/Company: ' + brand + '\n\n' +
-        'Requirement:\n' + message;
-
-      var mailto = 'mailto:raghav.bidzo@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      window.location.href = mailto;
-
       var success = document.getElementById('formSuccess');
-      if (success) success.classList.add('show');
+      var errorEl = document.getElementById('formError');
+      var submitBtn = form.querySelector('button[type=submit]');
+      if (errorEl) errorEl.style.display = 'none';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      var fallbackToEmail = function () {
+        var subject = 'Free Amazon Ads Audit Request — ' + brand;
+        var body =
+          'Name: ' + name + '\n' +
+          'Email: ' + email + '\n' +
+          'Phone: ' + phone + '\n' +
+          'Brand/Company: ' + brand + '\n\n' +
+          'Requirement:\n' + message;
+        window.location.href = 'mailto:raghav.bidzo@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        if (errorEl) { errorEl.textContent = "Couldn't reach the CRM, so we opened your email app instead — hit send there."; errorEl.style.display = 'block'; }
+      };
+
+      window.__crmReadyPromise
+        .then(function (addLead) {
+          if (!addLead) throw new Error('CRM unavailable');
+          var now = new Date().toISOString();
+          return addLead({
+            name: name,
+            email: email,
+            phone: phone,
+            company: brand,
+            owner: '',
+            status: 'Incoming leads',
+            comments: message ? [{ text: message, author: 'Website form', at: now }] : [],
+            createdAt: now,
+            updatedAt: now
+          });
+        })
+        .then(function () {
+          form.reset();
+          if (success) success.classList.add('show');
+        })
+        .catch(function (err) {
+          console.error('CRM lead submit failed', err);
+          fallbackToEmail();
+        })
+        .finally(function () {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Get My Free Audit'; }
+        });
     });
   }
 })();

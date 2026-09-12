@@ -104,10 +104,11 @@
   }
   .panel-head { font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 22px; }
   .panel-brands {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 16px; align-items: center;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 16px; align-items: start;
   }
-  .panel-brands .logo-chip { display: flex; align-items: center; justify-content: center; }
+  .panel-brands .logo-chip { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; }
   .panel-brands img { max-width: 100%; height: 38px; object-fit: contain; display: block; }
+  .panel-brands .logo-name { font-size: 0.72rem; font-weight: 600; color: var(--ink-soft); text-align: center; line-height: 1.25; }
 
   /* ---------- floating widgets ---------- */
   .floaters { position: fixed; right: 22px; bottom: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; z-index: 40; }
@@ -359,17 +360,17 @@
         <span>Brands we've grown</span>
       </div>
       <div class="panel-brands">
-        <div class="logo-chip"><img src="assets/logos/herbal-mitra.png" alt="Herbal Mitra"></div>
-        <div class="logo-chip"><img src="assets/logos/tidy-fox.png" alt="Tidy Fox"></div>
-        <div class="logo-chip"><img src="assets/logos/lovely-moms.png" alt="Lovely Moms"></div>
-        <div class="logo-chip"><img src="assets/logos/saf-paintings.png" alt="SAF Paintings"></div>
-        <div class="logo-chip"><img src="assets/logos/zfp.png" alt="ZFP"></div>
-        <div class="logo-chip"><img src="assets/logos/sattva-ayurveda.png" alt="Sattva Ayurveda"></div>
-        <div class="logo-chip"><img src="assets/logos/moto-genius.png" alt="Moto Genius"></div>
-        <div class="logo-chip"><img src="assets/logos/minute-to-cleanit.png" alt="Minute To Cleanit"></div>
-        <div class="logo-chip"><img src="assets/logos/clothe-funn.png" alt="Clothe Funn"></div>
-        <div class="logo-chip"><img src="assets/logos/athmonk.png" alt="Athmonk"></div>
-        <div class="logo-chip"><img src="assets/logos/gadget-bite.png" alt="Gadget Bite"></div>
+        <div class="logo-chip"><img src="assets/logos/herbal-mitra.png" alt="Herbal Mitra"><span class="logo-name">Herbal Mitra</span></div>
+        <div class="logo-chip"><img src="assets/logos/tidy-fox.png" alt="Tidy Fox"><span class="logo-name">Tidy Fox</span></div>
+        <div class="logo-chip"><img src="assets/logos/lovely-moms.png" alt="Lovely Moms"><span class="logo-name">Lovely Moms</span></div>
+        <div class="logo-chip"><img src="assets/logos/saf-paintings.png" alt="SAF Paintings"><span class="logo-name">SAF Paintings</span></div>
+        <div class="logo-chip"><img src="assets/logos/zfp.png" alt="Zerofootprint"><span class="logo-name">Zerofootprint</span></div>
+        <div class="logo-chip"><img src="assets/logos/sattva-ayurveda.png" alt="Simply Earth"><span class="logo-name">Simply Earth</span></div>
+        <div class="logo-chip"><img src="assets/logos/moto-genius.png" alt="Moto Genius"><span class="logo-name">Moto Genius</span></div>
+        <div class="logo-chip"><img src="assets/logos/minute-to-cleanit.png" alt="Minute To Cleanit"><span class="logo-name">Minute To Cleanit</span></div>
+        <div class="logo-chip"><img src="assets/logos/clothe-funn.png" alt="Clothe Funn"><span class="logo-name">Clothe Funn</span></div>
+        <div class="logo-chip"><img src="assets/logos/athmonk.png" alt="Athmonk"><span class="logo-name">Athmonk</span></div>
+        <div class="logo-chip"><img src="assets/logos/gadget-bite.png" alt="Gadget Bite"><span class="logo-name">Gadget Bite</span></div>
       </div>
     </div>
   </section>
